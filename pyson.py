@@ -33,28 +33,25 @@ def loadpyson(file):
     json_obj = json.loads(json_part)
     
     # 解析函数部分
-    # 创建一个新的环境来执行函数定义，保护全局环境
-    local_vars = {}
-    exec(function_part, {}, local_vars)
-    # 从执行结果中提取函数
-    functions = {k: v for k, v in local_vars.items() if callable(v)}
+    vars = {}
+    exec(function_part, vars)
     
     # 执行替换操作
-    return __replace_function(json_obj, functions)
+    return __replace_function(json_obj, vars)
 
 # 替换pyson中的函数为函数的返回值
-def __replace_function(obj, functions):
+def __replace_function(obj, vars):
     if isinstance(obj, str) and obj.startswith('function '):
         # 获取函数名，调用并替换
         func_name = obj[len('function '):].strip()
-        if func_name in functions:
-            return functions[func_name]()
+        if func_name in vars:
+            return vars[func_name]()
         else:
             raise ValueError(f"No such function: {func_name}")
     elif isinstance(obj, list):
-        return [__replace_function(item, functions) for item in obj]
+        return [__replace_function(item, vars) for item in obj]
     elif isinstance(obj, dict):
-        return {k: __replace_function(v, functions) for k, v in obj.items()}
+        return {k: __replace_function(v, vars) for k, v in obj.items()}
     else:
         return obj
 
@@ -71,3 +68,9 @@ def __strip_comments(json_text):
         else:
             without_comments.append(line)
     return '\n'.join(without_comments)
+
+
+if __name__ == '__main__':
+    # 测试
+    obj = loadpyson('example.pyson')
+    print(json.dumps(obj, indent=2, ensure_ascii=False))
