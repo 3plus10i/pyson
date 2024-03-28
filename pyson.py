@@ -1,12 +1,5 @@
 # pyson，json和python的混合数据格式
 
-# pyson文件以一个合法的json对象开始，此部分称为json part。
-# 可能存在一行，内容为'# function'，此行后续内容称为function part。
-# function part内容为合法的py文件内容，通常为一个或多个python函数的定义。
-# 在json part中，可以使用'function 函数名'的字符串作为值，
-# pyson加载器会将'function 函数名'处的对象替换为相应函数返回的对象。
-# 加载器最终返回一个python对象。
-# 
 # loadpyson会加载文件中的python程序，这可能会导致安全风险。
 # 请确保文件来源可靠，或者在加载前检查文件内容。
 # 
@@ -78,10 +71,3 @@ def __strip_comments(json_text):
         else:
             without_comments.append(line)
     return '\n'.join(without_comments)
-
-
-if __name__ == '__main__':
-    # 示例使用
-    pyson_content = loadpyson('example.pyson')
-    print(pyson_content)
-    # print(json.dumps(pyson_content, indent=4, ensure_ascii=False))
