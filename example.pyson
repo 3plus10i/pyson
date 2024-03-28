@@ -1,0 +1,30 @@
+{
+    "info": [
+        {"name": "John", "age": 30},
+        {"name": "Jane", "age": 25}
+    ],
+    "node": "function gen_node", # 允许在json部分使用注释
+    "edge": "function gen_edge" # 在josn中使用function xxx来调用函数
+}
+
+# function
+
+# 可以定义公共数据
+data = {
+    'mq': [0,30,20],
+    'length': [100,200,300]
+    }
+
+def gen_node(data=data): # 利用默认参数使用公共数据
+    mq_list = data['mq']
+    obj = []
+    for i,mq in enumerate(mq_list):
+        obj.append({'nid': i, 'mq': mq})
+    return obj
+
+def gen_edge(data=data):
+    length_list = data['length']
+    obj = []
+    for i,length in enumerate(length_list):
+        obj.append({'pid': i, 'length': length})
+    return obj
