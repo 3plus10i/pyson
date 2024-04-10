@@ -1,12 +1,11 @@
-{ # 允许在json部分使用注释
-    "info": [ # 允许一般json内容
+{
+    "info": [
         {"name": "John", "age": 30}
     ],
-    "node": "function gen_node",
-    "edge": "function gen_edge" # 在json中使用function xxx来调用函数
+    "node": "{% gen_node %}",
+    "edge": "{% gen_edge %}"
 }
 
-# function
 
 import time # 允许使用库
 # 可以定义公共数据
