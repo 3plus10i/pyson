@@ -39,8 +39,8 @@ print(json.dumps(pyson_content, indent=4, ensure_ascii=False))
     "info": [
         {"name": "John", "age": 30}
     ],
-    "node": "function gen_node",
-    "edge": "function gen_edge"
+    "node": "{% gen_node %}",
+    "edge": "{% gen_edge %}"
 }
 
 import time # 允许使用库

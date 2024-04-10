@@ -126,18 +126,4 @@ def __parse_placeholder(string):
         return None
 
 
-
-
-
-
-
-
-
-
-
-if __name__ == '__main__':
-    # 测试
-    obj = load_pyson('example.pyson')
-    print(json.dumps(obj, indent=2, ensure_ascii=False))
-    jsonfile = export_pyson('example.pyson')
-    print(f"Exported to {jsonfile}")
+__all__ = ['load_pyson', 'export_pyson']
